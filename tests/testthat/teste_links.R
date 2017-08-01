@@ -1,8 +1,22 @@
 context('Todos os links dos metadados ainda existem')
 
+gera_arquivo <- function(dataset) {
+  system.file('extdata', dataset, paste0(dataset, '_files_metadata_harmonization.csv'), package = 'microdadosBrasil'),
+}
 
-metadados <- dir('../../inst/extdata', pattern = 'files_metadata_harmonization.csv',
-            recursive = TRUE, full.names = TRUE)
+metadados <- list(
+  gera_arquivo('CAGED'),
+  gera_arquivo('CENSO'),
+  gera_arquivo('CensoEducacaoSuperior'),
+  gera_arquivo('CensoEscolar'),
+  gera_arquivo('ENEM'),
+  gera_arquivo('PME'),
+  gera_arquivo('PNAD'),
+  gera_arquivo('PNADcontinua'),
+  gera_arquivo('PNS'),
+  gera_arquivo('POF'),
+  gera_arquivo('RAIS')
+  )
 
 tabelas <- lapply(metadados, function(x) {
   data.table::fread(x)[['download_path']]
