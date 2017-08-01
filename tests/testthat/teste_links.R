@@ -1,7 +1,9 @@
 context('Todos os links dos metadados ainda existem')
 
 gera_arquivo <- function(dataset) {
-  system.file('extdata', dataset, paste0(dataset, '_files_metadata_harmonization.csv'), package = 'microdadosBrasil')
+  caminho <- system.file('extdata', dataset, paste0(dataset, '_files_metadata_harmonization.csv'),
+              package = 'microdadosBrasil')
+  caminho
 }
 
 metadados <- list(
@@ -12,19 +14,17 @@ metadados <- list(
   gera_arquivo('ENEM'),
   gera_arquivo('PME'),
   gera_arquivo('PNAD'),
-  gera_arquivo('PNADcontinua'),
+  system.file('extdata', 'PNADcontinua',
+              'PnadContinua_files_metadata_harmonization.csv',
+              package = 'microdadosBrasil'), # este caminho não está padronizado
   gera_arquivo('PNS'),
   gera_arquivo('POF'),
   gera_arquivo('RAIS')
-  )
+)
 
 tabelas <- lapply(metadados, function(x) {
   data.table::fread(x)[['download_path']]
   }) %>% unlist()
-
-# dois casos de teste: http e ftp
-ftp <- tabelas[grep('ftp://', tabelas)]
-http <- tabelas[grep('https?://', tabelas)]
 
 teste_ftp <- function(caminho) {
   if (length(caminho) > 1) return(sapply(caminho, teste_ftp))
