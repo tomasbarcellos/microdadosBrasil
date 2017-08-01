@@ -1,7 +1,7 @@
 context('Todos os links dos metadados ainda existem')
 
 gera_arquivo <- function(dataset) {
-  system.file('extdata', dataset, paste0(dataset, '_files_metadata_harmonization.csv'), package = 'microdadosBrasil'),
+  system.file('extdata', dataset, paste0(dataset, '_files_metadata_harmonization.csv'), package = 'microdadosBrasil')
 }
 
 metadados <- list(
